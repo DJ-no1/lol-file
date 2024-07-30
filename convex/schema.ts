@@ -12,7 +12,7 @@ export const roles = v.union(v.literal("admin"), v.literal("member"));
 export default defineSchema({
   files: defineTable({
     name: v.string(),
-    type: fileTypes,
+    type: v.optional(fileTypes),
     orgId: v.string(),
     fileId: v.id("_storage"),
     userId: v.id("users"),

@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
@@ -127,7 +128,7 @@ export function FileBrowser({
 
         {isLoading && (
           <div className="flex flex-col gap-8 w-full items-center mt-24">
-            <Loader2 className="h-32 w-32 animate-spin text-gray-500" />
+            <Loader2 className="h-32 w-32 animate-spin text-green-300" />
             <div className="text-2xl">Loading your files...</div>
           </div>
         )}
@@ -139,13 +140,11 @@ export function FileBrowser({
             })}
           </div>
         </TabsContent>
-        <TabsContent value="table">
-          {/* <DataTable columns={columns} data={modifiedFiles}/> */}
-          <DataTable columns={columns} data={modifiedFiles} >
-
-            <h1>gsgsdg</h1>
-          </DataTable>
-        </TabsContent>
+        {/* <TabsContent value="table">
+          <div>
+          <DataTable columns ={columns} data={modifiedFiles}/>
+          </div>
+        </TabsContent> */}
       </Tabs>
 
       {files?.length === 0 && <Placeholder />}

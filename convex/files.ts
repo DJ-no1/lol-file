@@ -1,3 +1,5 @@
+platforms: ["node"]
+
 import { ConvexError, v } from "convex/values";
 import {
   MutationCtx,
@@ -6,7 +8,6 @@ import {
   mutation,
   query,
 } from "./_generated/server";
-import { getUser } from "./users";
 import { fileTypes } from "./schema";
 import { Doc, Id } from "./_generated/dataModel";
 
@@ -36,34 +37,49 @@ export async function hasAccessToOrg(
       q.eq("tokenIdentifier", identity.tokenIdentifier)
     )
     .first();
-
+    
+    if(user){
+      console.log(user , "user found");
+    }
+    
   if (!user) {
+    console.log(user , "no user found");
     return null;
   }
 
   const hasAccess =
     user.orgIds.some((item) => item.orgId === orgId) ||
     user.tokenIdentifier.includes(orgId);
+    console.log("has access =",hasAccess);
 
+
+    if (hasAccess) {
+      return console.log("has access") ;   
+}
   if (!hasAccess) {
+    console.log("no access on has access")
     return null;
   }
 
   return { user };
 }
-
 export const createFile = mutation({
   args: {
     name: v.string(),
     fileId: v.id("_storage"),
     orgId: v.string(),
-    type: fileTypes,
+    type: v.optional(fileTypes),
   },
   async handler(ctx, args) {
     const hasAccess = await hasAccessToOrg(ctx, args.orgId);
 
     if (!hasAccess) {
-      throw new ConvexError("you do not have access to this org");
+      
+      // throw new ConvexError("no access to org")
+      throw console.log(args.name,args.type,args.orgId,hasAccess,"no access taaao org")
+      
+
+      
     }
 
     await ctx.db.insert("files", {

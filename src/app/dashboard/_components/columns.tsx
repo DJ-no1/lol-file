@@ -1,4 +1,3 @@
-"use client";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";

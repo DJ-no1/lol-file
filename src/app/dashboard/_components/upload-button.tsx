@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import { Button } from "@/components/ui/button";
 import { useOrganization, useUser } from "@clerk/nextjs";
 import {
@@ -82,8 +81,8 @@ export function UploadButton() {
         type: types[fileType],
       });
 
-      form.reset();
 
+      form.reset();
       setIsFileDialogOpen(false);
 
       toast({
