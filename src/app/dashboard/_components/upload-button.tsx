@@ -29,6 +29,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import { Doc } from "../../../../convex/_generated/dataModel";
+import { Toast } from "@/components/ui/toast";
 
 const formSchema = z.object({
   title: z.string().min(1).max(200),
@@ -44,10 +45,10 @@ export function UploadButton() {
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       file: undefined,
+      
     },
   });
 
@@ -73,7 +74,35 @@ export function UploadButton() {
       "text/csv": "csv",
     } as Record<string, Doc<"files">["type"]>;
 
+
+    
+
     try {
+// from this to 
+      if (!orgId) return;
+
+      const fileType = values.file[0].type;
+      
+      if (fileType in types) {
+      } else {
+        toast({
+          variant: "destructive",
+          title: "File type must be image, pdf or csv",
+          description: "Your file could not be uploaded, try again later",
+        });
+        return;
+      }
+      
+      const postUrl = await generateUploadUrl();
+      
+      const result = await fetch(postUrl, {
+        method: "POST",
+        headers: { "Content-Type": fileType },
+        body: values.file[0],
+      });
+      const { storageId } = await result.json();
+//to this
+
       await createFile({
         name: values.title,
         fileId: storageId,
@@ -85,10 +114,9 @@ export function UploadButton() {
       form.reset();
       setIsFileDialogOpen(false);
 
-      toast({
+      Toast({
         variant: "success",
         title: "File Uploaded",
-        description: "Now everyone can view your file",
       });
     } catch (err) {
       toast({

@@ -140,11 +140,11 @@ export function FileBrowser({
             })}
           </div>
         </TabsContent>
-        {/* <TabsContent value="table">
+        <TabsContent value="table">
           <div>
           <DataTable columns ={columns} data={modifiedFiles}/>
           </div>
-        </TabsContent> */}
+        </TabsContent>
       </Tabs>
 
       {files?.length === 0 && <Placeholder />}

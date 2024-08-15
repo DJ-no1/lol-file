@@ -64,7 +64,7 @@ export function FileCardActions({
                   fileId: file._id,
                 });
                 toast({
-                  variant: "default",
+                  variant: "destructive",
                   title: "File marked for deletion",
                   description: "Your file will be deleted soon",
                 });
@@ -83,13 +83,13 @@ export function FileCardActions({
         <DropdownMenuContent>
           <DropdownMenuItem
             onClick={() => {
-              if (!file.url) return;
               window.open(file.url, "_blank");
             }}
             className="flex gap-1 items-center cursor-pointer"
           >
             <FileIcon className="w-4 h-4" /> Download
           </DropdownMenuItem>
+
 
           <DropdownMenuItem
             onClick={() => {
