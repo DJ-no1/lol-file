@@ -133,16 +133,20 @@ export function FileBrowser({
           </div>
         )}
 
-        {/* <TabsContent value="grid">
+        <TabsContent value="grid">
           <div className="grid grid-cols-3 gap-4">
             {modifiedFiles?.map((file) => {
-              return <FileCard key={file._id} file ={file} />;
+              return <FileCard key={file._id} file={{ ...file, url: file.url ?? "" }} />;
             })}
           </div>
         </TabsContent>
-        <TabsContent value="table">
+
+
+
+
+        {/* <TabsContent value="table">
           <div>
-          <DataTable columns ={columns} data={modifiedFiles}/>
+          <DataTable columns={columns} data={files ?? []}/>
           </div>
         </TabsContent> */}
       </Tabs>
